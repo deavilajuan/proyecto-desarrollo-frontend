@@ -16,3 +16,12 @@ Usamos **Flexbox** en dos lugares puntuales:
 2. Dentro de cada caja de contenido (`.principal`, `.secundario`, `.seccion`, `.pie`) para centrar verticalmente y horizontalmente el texto/título/imagen dentro de la caja.
 
 Elegimos Flexbox en estos casos porque son problemas de **una sola dimensión**: una fila de botones, o el centrado de contenido dentro de un único contenedor. No había que coordinar filas y columnas a la vez, así que Flexbox es más simple y directo que Grid para esto.
+
+En la terminal, dentro de la carpeta del proyecto, ejecuta:
+ 
+```bash
+bash start.sh
+```
+ 
+Esto levanta un servidor local en `http://localhost:8000`. Si estás en un Codespace, abre el puerto 8000 desde la pestaña **PORTS** o desde la notificación que aparece abajo a la derecha.
+ 
