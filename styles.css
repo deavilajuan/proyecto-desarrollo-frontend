@@ -26,9 +26,12 @@ body {
   min-height: 100vh;
 }
 
-/* Barra de navegación (lista 1, 2, 3) */
-.lista {
+/* Cabecera que contiene la barra de navegación (lista 1, 2, 3) */
+.lista-header {
   grid-area: lista;
+}
+
+.lista {
   display: flex;
   gap: 12px;
   background-color: #a4e5b1;
