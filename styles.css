@@ -1,0 +1,111 @@
+/* Box Model: siempre border-box */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  background-color: #a9dcf0;
+  font-family: 'Comic Sans MS', 'Segoe UI', sans-serif;
+}
+
+/* Contenedor general: aquí hay filas Y columnas -> Grid */
+.layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-areas:
+    "lista      lista       lista"
+    "principal  secundario  secundario"
+    "principal  seccion-1   seccion-2"
+    "pie        pie         pie";
+  gap: 12px;
+  background-color: #a9dcf0;
+  border-radius: 20px;
+  padding: 16px;
+  min-height: 100vh;
+}
+
+/* Barra de navegación (lista 1, 2, 3) */
+.lista {
+  grid-area: lista;
+  display: flex;
+  gap: 12px;
+  background-color: #a4e5b1;
+  border: 3px solid #111;
+  padding: 10px;
+}
+
+.item-lista {
+  flex: 1;
+  background-color: #ffffff;
+  border: 2px solid #111;
+  padding: 14px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+/* Estilo base compartido de las cajas de contenido */
+.principal,
+.secundario,
+.seccion,
+.pie {
+  border: 2px solid #111;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.principal h2,
+.secundario h2,
+.seccion h3 {
+  margin: 0 0 12px 0;
+  font-weight: normal;
+  font-size: 1.4rem;
+}
+
+.principal p,
+.secundario p {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.principal {
+  grid-area: principal;
+  background-color: #a4e5b1;
+}
+
+.secundario {
+  grid-area: secundario;
+  background-color: #ffe28a;
+}
+
+.seccion-1 {
+  grid-area: seccion-1;
+  background-color: #a4e5b1;
+}
+
+.seccion-2 {
+  grid-area: seccion-2;
+  background-color: #ffe28a;
+}
+
+.seccion img {
+  max-width: 100%;
+  max-height: 140px;
+  object-fit: contain;
+}
+
+.pie {
+  grid-area: pie;
+  background-color: #ffc9c9;
+}
+
+.pie p {
+  margin: 4px 0;
+  font-size: 1rem;
+}
