@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>DropX Logistica</title>
+        <link rel="stylesheet" href="../Dropx.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <header class="header-container">
+            <div class="header-content">
+                <div class="logo-box">
+                    <img src="../Logo DropX actualizada.jpeg" alt="Logo de DropX Logistica" title="Logo de DropX Logistica" width="200" class="logo-img">
+                </div>
+                <div class="header-titles">
+                    <h1 title="Titulo de la página">Bienvenido a DropX Logistica</h1>
+                    <p title="Descripcion de la página" style="color: white;"> 
+                        DropX Logistica es una empresa dedicada a la gestión y seguimiento de paquetes. 
+                        Nuestro objetivo es proporcionar soluciones logísticas eficientes y confiables para nuestros clientes.
+                    </p>
+                </div>
+            </div>
+        </header>
+
+        <div style="background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 0.8rem 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <div style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.8rem;">
+                
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <p id="badge-rol" class="badge">Cargando rol...</p>
+                    <p style="font-weight: 550; font-size: 0.95rem; color: #0f172a;" id="saludo-usuario">Usuario autenticado</p>
+                    <p id="saludo-usuario" class="badge">Usuario autenticado</p>
+                    <span id="contador-modulos"></span>
+                </div>
+
+                <button type="button" class="btn-logout btn-opcion" onclick="cerrarSesion()" style="display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+                    🔒 Cerrar Sesión
+                </button>
+            </div>
+        </div>
+
+        <main class="layouts">
+            
+            <div id="seccion-opciones" class="opciones-container">
+                <div class="card-header">
+                    <div class="badge">Módulos del sistema</div>
+                    <h3>Panel de control - Opciones disponibles</h3>
+                    <p class="opciones-subtext"> Selecciona una de las acciones para gestionar la logística:</p>
+                </div>
+                <ol class="lista-opciones">
+                    <li class="opcion-item" data-roles="admin, logistica">
+                        Registrar repartidores
+                        <a href="Opciones/repartidores.html">
+                            <button type="button" class="btn-opcion">Registrar</button>
+                        </a>
+                    </li>
+
+                    <li class="opcion-item" data-roles="logistica">
+                        Crear y asignar paquetes
+                        <a href="Opciones/paquetes.html">
+                            <button type="button" class="btn-opcion">Consultar</button>
+                        </a>
+                    </li>
+
+                    <li class="opcion-item" data-roles="repartidores, logistica">
+                        Consultar recogidas y entregas
+                        <a href="Opciones/consultas.html">
+                            <button type="button" class="btn-opcion">Consultar</button>
+                        </a>
+                    </li>
+
+                    <li class="opcion-item" data-roles="admin, repartidores, logistica">
+                        Mapa de paquetes
+                        <a href="Opciones/mapa.html">
+                            <button type="button" class="btn-opcion btn-destacado">Mapa</button>
+                        </a>
+                    </li>
+
+                    <li class="opcion-item" data-roles="repartidores, logistica"> 
+                        Actualizar estados
+                        <a href="Opciones/estados.html">
+                            <button type="button" class="btn-opcion">Actualizar</button>
+                        </a>
+                    </li>
+                    <li class="opcion-item" data-roles="repartidores, logistica">
+                        Registrar incidencias
+                        <a href="Opciones/incidencias.html">
+                            <button type="button" class="btn-opcion btn-alerta">Registrar</button>
+                        </a>
+                    </li>
+                    <li class="opcion-item" data-roles="admin">
+                        Monitorear operacion
+                        <a href="Opciones/monitoreo.html">
+                            <button type="button" class="btn-opcion">Ver operación</button>
+                        </a>
+                    </li>
+                </ol>
+            </div>
+        </main>
+
+        <footer class="footer-container">
+            <p>&copy; 2026 <strong>DropX Logistica</strong> — Plataforma Integral de Envíos y Seguimiento.</p>
+        </footer>
+
+        <script>
+            const usuario = sessionStorage.getItem('usuario_dropx');
+            let rol = sessionStorage.getItem('rol_dropx');
+
+            if (!usuario || !rol) {
+                window.location.href = 'inicio_sesion.html';
+            }
+
+            if (rol === 'repartidores') {
+                rol = 'repartidor';
+            }
+
+            const badgeRol = document.getElementById('badge-rol');
+            const saludoUsuario = document.getElementById('saludo-usuario');
+            const contadorModulos = document.getElementById('contador-modulos');
+
+            saludoUsuario.innerText = `Conectado como: ${usuario}`;
+            
+            if (rol === 'admin') {
+                badgeRol.style.backgroundColor = '#ede9fe';
+                badgeRol.style.color = '#5b21b6';
+                badgeRol.innerHTML = ' Administrador General';
+            } else if (rol === 'logistica') {
+                badgeRol.style.backgroundColor = '#dbeafe';
+                badgeRol.style.color = '#1e40af';
+                badgeRol.innerHTML = ' Operador Logístico';
+            } else {
+                badgeRol.style.backgroundColor = '#dcfce7';
+                badgeRol.style.color = '#15803d';
+                badgeRol.innerHTML = ' Repartidor / Conductor';
+            }
+            // 3. Filtramos los módulos de la lista según el rol
+            const opciones = document.querySelectorAll('.opcion-item');
+            let modulosVisibles = 0;
+            opciones.forEach(opcion => {
+                const rolesPermitidos = opcion.getAttribute('data-roles') || '';
+                const listaRoles = rolesPermitidos.split(',').map(r => r.trim());
+                if (listaRoles.includes(rol) || (rol === 'repartidor' && listaRoles.includes('repartidores'))) {
+                    opcion.style.display = 'flex';
+                    modulosVisibles++;
+                } else {
+                    opcion.style.display = 'none';
+                }
+            });
+            contadorModulos.innerText = `${modulosVisibles} módulos activos`;
+            
+            function cerrarSesion() {
+                // Borramos los datos de sesión
+                sessionStorage.clear();
+                // Redirigimos a la página de login
+                window.location.href = 'inicio_sesion.html';
+            }
+        </script>
+    </body>
+</html>
