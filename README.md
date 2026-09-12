@@ -1,4 +1,4 @@
-![Layout de la página](./layout2.png)
+![Layout de la página](./layout3.png)
 
 # TechMarket — Layout y reflexión
 
